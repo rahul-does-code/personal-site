@@ -1,9 +1,8 @@
 # Build notes & assumptions (map branch)
 
-- **Theme**: an enchanted hand-drawn castle map, inspired by the idea of a magical map rather than copying any film or book artwork, names or quotes. Parchment, iron-gall ink, and walking footprints.
-- **Focal moment**: the map starts blank. Tap anywhere and the ink spreads outward from that point, room by room. It's skipped for reduced-motion users and for return visits in the same session, and "Fold the map away" in the footer replays it.
-- **Motion that carries meaning**: Rahul's footprints wander between rooms and walk to whichever room you click. Your own footprints follow the cursor. A trail in the left margin shows how far down the page you are. The armor draws itself, ledger entries unfold, and the letter opens when you break the wax seal.
-- **Suit of armor** is kept as "The Armory": a plate-armor diagram where each piece maps to a skill group in `content.js`.
-- **Design references**: followed pbakaus/impeccable's craft floor. That means one authored moment instead of fading in every section, no eyebrow labels or section numbers, no hard offset shadows, themed selection, caret, scrollbar and focus rings, `text-wrap: balance`/`pretty`, and content visible if JS fails.
-- **Removed** the ToyArk hero image on this branch.
-- **Email / projects / copy**: still placeholders marked `TODO` in `content.js` and `index.html`.
+- **Theme (v2, from Rahul's reference images)**: a tri-fold parchment map. It opens from a castle cover when you click "I solemnly swear that I am up to no good" and folds shut again with "Mischief managed". Walls are double lines with tiny lettering between them, rulers and Latin bands run along the edges, and named footsteps walk the floor plan.
+- **Not copied**: none of the film or book artwork, crest, place names or character names are used. The presenters are "Rahul, Ctrl, Alt & Delete", the title is "The Developer's Map", and the Latin is original pun Latin. The two famous phrases are kept as button text because Rahul asked for them.
+- **Motion**: the flaps unfold with 3D `rotateY` (`rotateX` stacked vertically on phones). Rahul and "A Stray Bug" wander between rooms, and your own footprints follow the pointer. Hovering a nav link sends a set of footsteps walking toward that section. Ink draws walls, the compass and the armor as they come into view. Footsteps also circle the folded cover. Reduced-motion users get instant state changes and still footsteps.
+- **Suit of armor**: kept as "The Armory".
+- **Design rules followed** (pbakaus/impeccable): content stays reachable while the map is folded, hidden faces are `inert`, the selection, focus and scrollbar are themed, and there are no section numbers or eyebrow labels.
+- **Content**: still placeholders marked `TODO` in `content.js` and `index.html`.
