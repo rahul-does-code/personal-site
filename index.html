@@ -1,0 +1,192 @@
+<!doctype html>
+<html lang="en" data-variant="classic">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Rahul Does Code</title>
+  <meta name="description" content="Rahul's corner of the multiverse: projects, experiments, and the suit." />
+  <meta property="og:title" content="Rahul Does Code" />
+  <meta property="og:description" content="Projects, experiments, and the suit." />
+  <meta property="og:url" content="https://rahuldoescode.tech" />
+  <meta name="theme-color" content="#140024" />
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bangers&family=Permanent+Marker&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <a class="skip" href="#work">Skip to projects</a>
+  <div id="progress" aria-hidden="true"></div>
+  <div class="cursor" aria-hidden="true"><span></span><span></span><span></span></div>
+  <div class="shift" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+
+  <nav class="nav" aria-label="Main">
+    <a class="nav-logo" href="#top" data-shift>R<span>//</span>DC</a>
+    <ul>
+      <li><a href="#origin" data-shift>Origin</a></li>
+      <li><a href="#work" data-shift>Multiverse</a></li>
+      <li><a href="#suit" data-shift>The Suit</a></li>
+      <li><a href="#lab" data-shift>Lab</a></li>
+      <li><a href="#contact" data-shift>Contact</a></li>
+    </ul>
+    <button class="dim-btn" id="dimBtn" type="button" aria-label="Switch dimension (color variant)">
+      <span class="dim-dot"></span><span class="dim-label">CLASSIC</span>
+    </button>
+  </nav>
+
+  <!-- ============ HERO ============ -->
+  <header class="hero" id="top">
+    <canvas id="dotfield" aria-hidden="true"></canvas>
+    <div class="hero-burst" aria-hidden="true"></div>
+    <div class="hero-inner">
+      <p class="caption caption--yellow tilt-l">Hi. You just fell into my corner of the multiverse.</p>
+      <h1 class="title glitch" data-text="RAHUL">RAHUL</h1>
+      <p class="sticker">does&nbsp;code.</p>
+      <p class="caption caption--white tilt-r">Developer. Builder. Professional breaker-of-things on <b>Earth-1337</b>.</p>
+      <div class="hero-cta">
+        <a class="btn btn--hot" href="#work" data-shift>See the work</a>
+        <a class="btn btn--ink" href="#suit" data-shift>Suit up</a>
+      </div>
+    </div>
+    <div class="scroll-hint" aria-hidden="true">SCROLL<span>▼</span></div>
+  </header>
+
+  <main>
+    <!-- ============ ORIGIN ============ -->
+    <section class="section section--paper" id="origin">
+      <h2 class="sec-title"><span class="sec-num">#01</span> Origin Story</h2>
+      <div class="panels">
+        <article class="panel panel--a reveal">
+          <p class="caption caption--yellow">Chapter 1: The Spark</p>
+          <div class="panel-art art-spark" aria-hidden="true"><span class="sfx sfx--pop">CLICK!</span></div>
+          <p>TODO: the first thing you ever built. The janky script, the Minecraft mod, the calculator app. Every origin starts with something small.</p>
+        </article>
+        <article class="panel panel--b reveal">
+          <p class="caption caption--cyan">Chapter 2: The Grind</p>
+          <div class="panel-art art-grind" aria-hidden="true"><span class="sfx sfx--pop">TAKTAKTAK</span></div>
+          <p>TODO: where you leveled up: school, internships, open source, hackathons, late nights staring at stack traces.</p>
+        </article>
+        <article class="panel panel--c reveal">
+          <p class="caption caption--hot">Chapter 3: Right Now</p>
+          <div class="panel-art art-now" aria-hidden="true"><span class="sfx sfx--pop">VWOOSH</span></div>
+          <p>TODO: what you're building today and what kind of problems you want to be handed next.</p>
+        </article>
+      </div>
+    </section>
+
+    <!-- ============ PROJECTS ============ -->
+    <section class="section section--dark" id="work">
+      <h2 class="sec-title sec-title--light"><span class="sec-num">#02</span> The Multiverse</h2>
+      <p class="sec-sub">Every project is its own universe. Hover to make one glitch.</p>
+      <div class="grid-projects" id="projects"></div>
+    </section>
+
+    <!-- ============ THE SUIT ============ -->
+    <section class="section section--suit" id="suit">
+      <h2 class="sec-title"><span class="sec-num">#03</span> The Suit</h2>
+      <p class="sec-sub sec-sub--ink">Every piece of the armor is something I actually use. Tap a piece to inspect it.</p>
+
+      <div class="suit-wrap">
+        <div class="suit-stage">
+          <div class="suit-hud" aria-hidden="true">
+            <span id="suitDesignation">MK-VII</span>
+            <span class="blink">● ONLINE</span>
+          </div>
+          <svg class="suit-svg" viewBox="0 0 300 500" role="group" aria-label="Armor diagram. Select a piece to view its loadout.">
+            <defs>
+              <pattern id="ht" width="7" height="7" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+                <circle cx="3.5" cy="3.5" r="1.6" fill="var(--ink)" opacity=".55" />
+              </pattern>
+              <pattern id="lines" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(-30)">
+                <rect width="2" height="6" fill="var(--ink)" opacity=".35" />
+              </pattern>
+              <g id="armor">
+                <!-- boots / legs -->
+                <path d="M116 242h32l-2 92h-28z M112 338h34l1 104 7 30h-56l8-30z" />
+                <path d="M184 242h-32l2 92h28z M188 338h-34l-1 104-7 30h56l-8-30z" />
+                <!-- belt -->
+                <path d="M118 212h64l6 28H112z" />
+                <!-- arms -->
+                <path d="M84 152l26-6-2 66-26 10z M78 226l30-8 4 72-32 10z M80 304l32-10 3 28-30 6z" />
+                <path d="M216 152l-26-6 2 66 26 10z M222 226l-30-8-4 72 32 10z M220 304l-32-10-3 28 30 6z" />
+                <!-- chest + shoulders -->
+                <path d="M114 106h72l12 44-16 60h-64l-16-60z M80 118l34-12 4 34-34 14z M220 118l-34-12-4 34 34 14z" />
+                <!-- helmet -->
+                <path d="M120 30l30-16 30 16 9 40-19 32h-40l-19-32z" />
+              </g>
+            </defs>
+
+            <!-- misregistration ghosts -->
+            <use href="#armor" class="ghost ghost--c" />
+            <use href="#armor" class="ghost ghost--m" />
+
+            <g class="part" data-part="boots" tabindex="0" role="button" aria-label="Legs: Deploy Boots">
+              <path class="fill" d="M116 242h32l-2 92h-28z M112 338h34l1 104 7 30h-56l8-30z M184 242h-32l2 92h28z M188 338h-34l-1 104-7 30h56l-8-30z" />
+              <path class="shade" d="M116 242h14l-2 92h-10z M112 338h14l1 104 -2 30h-27l8-30z M184 242h-14l2 92h10z M188 338h-14l-1 104 2 30h27l-8-30z" />
+              <path class="detail" d="M112 384h34 M188 384h-34 M116 290h30 M184 290h-30" />
+            </g>
+            <g class="part" data-part="belt" tabindex="0" role="button" aria-label="Waist: Utility Rig">
+              <path class="fill" d="M118 212h64l6 28H112z" />
+              <path class="shade" d="M118 212h64l6 28H112z" style="fill:url(#lines)" />
+              <rect class="buckle" x="138" y="216" width="24" height="20" />
+            </g>
+            <g class="part" data-part="gauntlets" tabindex="0" role="button" aria-label="Arms: Fabricator Gauntlets">
+              <path class="fill" d="M84 152l26-6-2 66-26 10z M78 226l30-8 4 72-32 10z M80 304l32-10 3 28-30 6z M216 152l-26-6 2 66 26 10z M222 226l-30-8-4 72 32 10z M220 304l-32-10-3 28 30 6z" />
+              <path class="shade" d="M84 152l10-2-2 68-10 4z M78 226l12-3 2 74-12 3z M216 152l-10-2 2 68 10 4z M222 226l-12-3-2 74 12 3z" />
+              <path class="detail" d="M80 250l30-8 M80 268l31-8 M220 250l-30-8 M220 268l-31-8" />
+            </g>
+            <g class="part" data-part="core" tabindex="0" role="button" aria-label="Chest: Reactor Core">
+              <path class="fill" d="M114 106h72l12 44-16 60h-64l-16-60z M80 118l34-12 4 34-34 14z M220 118l-34-12-4 34 34 14z" />
+              <path class="shade" d="M114 106h20l-6 104h-10l-16-60z M80 118l34-12 4 34-34 14z" />
+              <circle class="reactor" cx="150" cy="152" r="22" />
+              <text class="emblem" x="150" y="159" text-anchor="middle">&lt;/&gt;</text>
+            </g>
+            <g class="part" data-part="helmet" tabindex="0" role="button" aria-label="Head: Neural Helm">
+              <path class="fill" d="M120 30l30-16 30 16 9 40-19 32h-40l-19-32z" />
+              <path class="shade" d="M120 30l30-16v88h-20l-19-32z" />
+              <path class="visor" d="M124 56l26 8 26-8-4 18-22 8-22-8z" />
+              <path class="detail" d="M150 14v20" />
+            </g>
+          </svg>
+          <p class="suit-hint" aria-hidden="true">◀ TAP A PIECE ▶</p>
+        </div>
+
+        <div class="suit-panel panel" id="suitPanel" aria-live="polite">
+          <div class="suit-tabs" role="tablist" aria-label="Armor pieces" id="suitTabs"></div>
+          <div class="suit-readout" id="suitReadout"></div>
+        </div>
+      </div>
+
+      <div class="variants">
+        <p class="caption caption--yellow">Choose your dimension. The whole site changes with the suit.</p>
+        <div class="variant-row" id="variantRow"></div>
+      </div>
+    </section>
+
+    <!-- ============ LAB ============ -->
+    <section class="section section--paper" id="lab">
+      <h2 class="sec-title"><span class="sec-num">#04</span> The Lab</h2>
+      <p class="sec-sub sec-sub--ink">Cool stuff, odds and ends, works in progress.</p>
+      <div class="grid-lab" id="labGrid"></div>
+    </section>
+
+    <!-- ============ CONTACT ============ -->
+    <section class="section section--dark contact" id="contact">
+      <div class="bubble reveal">
+        <p class="bubble-big">Got a universe that needs saving?</p>
+        <p>Or just want to talk shop? My inbox is open.</p>
+        <a class="btn btn--hot btn--big" id="emailBtn" href="#">Say hi</a>
+        <ul class="socials" id="socials"></ul>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <p>Hand-drawn in HTML on <b>Earth-1337</b>. No universes were harmed. © <span id="yr"></span> Rahul</p>
+  </footer>
+
+  <script src="content.js"></script>
+  <script src="main.js"></script>
+</body>
+</html>
