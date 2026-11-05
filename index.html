@@ -24,8 +24,8 @@
   <nav class="nav" aria-label="Main">
     <a class="nav-logo" href="#top" data-shift>R<span>//</span>DC</a>
     <ul>
-      <li><a href="#origin" data-shift>Origin</a></li>
       <li><a href="#work" data-shift>Multiverse</a></li>
+      <li><a href="#origin" data-shift>Origin</a></li>
       <li><a href="#suit" data-shift>The Suit</a></li>
       <li><a href="#lab" data-shift>Lab</a></li>
       <li><a href="#contact" data-shift>Contact</a></li>
@@ -49,6 +49,12 @@
     <canvas id="dotfield" aria-hidden="true"></canvas>
     <div class="hero-shade" aria-hidden="true"></div>
     <div class="dive-fade" aria-hidden="true"></div>
+    <canvas class="portal" id="portal" aria-hidden="true"></canvas>
+    <svg class="lenses" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+      <path fill-rule="evenodd" d="M-4000 -4000 H5600 V5000 H-4000 Z M190 230 C380 120 640 190 740 330 C700 560 560 730 330 760 C190 650 140 440 190 230 Z M1410 230 C1220 120 960 190 860 330 C900 560 1040 730 1270 760 C1410 650 1460 440 1410 230 Z" />
+      <path class="lens-rim" d="M190 230 C380 120 640 190 740 330 C700 560 560 730 330 760 C190 650 140 440 190 230 Z M1410 230 C1220 120 960 190 860 330 C900 560 1040 730 1270 760 C1410 650 1460 440 1410 230 Z" />
+    </svg>
+    <div class="flash" aria-hidden="true"></div>
     <div class="hero-inner">
       <p class="caption caption--light tilt-l">Hi. You just fell into my corner of the multiverse.</p>
       <h1 class="title glitch" data-text="RAHUL">RAHUL</h1>
@@ -64,9 +70,16 @@
   </header>
 
   <main>
+    <!-- ============ PROJECTS ============ -->
+    <section class="section section--dark" id="work">
+      <h2 class="sec-title sec-title--light"><span class="sec-num">#01</span> The Multiverse</h2>
+      <p class="sec-sub">Every project is its own universe. Hover to make one glitch.</p>
+      <div class="grid-projects" id="projects"></div>
+    </section>
+
     <!-- ============ ORIGIN ============ -->
     <section class="section section--paper" id="origin">
-      <h2 class="sec-title"><span class="sec-num">#01</span> Origin Story</h2>
+      <h2 class="sec-title"><span class="sec-num">#02</span> Origin Story</h2>
       <div class="panels">
         <article class="panel panel--a reveal">
           <p class="caption caption--light">Chapter 1: The Spark</p>
@@ -86,12 +99,6 @@
       </div>
     </section>
 
-    <!-- ============ PROJECTS ============ -->
-    <section class="section section--dark" id="work">
-      <h2 class="sec-title sec-title--light"><span class="sec-num">#02</span> The Multiverse</h2>
-      <p class="sec-sub">Every project is its own universe. Hover to make one glitch.</p>
-      <div class="grid-projects" id="projects"></div>
-    </section>
 
     <!-- ============ THE SUIT ============ -->
     <section class="section section--suit" id="suit">

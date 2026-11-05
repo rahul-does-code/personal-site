@@ -179,6 +179,108 @@
     update();
   }
 
+  /* ---------------- the portal: an orange tunnel you get pulled through ---------------- */
+  (() => {
+    const hero = $(".hero"), cv = $("#portal"), lenses = $(".lenses");
+    if (!cv || reduceMotion) return;
+    const ctx = cv.getContext("2d");
+    let w = 0, h = 0, t = 0, last = 0, running = false;
+    // portrait screens show both lenses smaller instead of cropping to the bridge of the mask
+    const fitLenses = () => lenses.setAttribute("preserveAspectRatio", innerWidth / innerHeight < 1.1 ? "xMidYMid meet" : "xMidYMid slice");
+    const size = () => {
+      const dpr = Math.min(devicePixelRatio || 1, 1.5);
+      w = cv.clientWidth; h = cv.clientHeight;
+      cv.width = Math.round(w * dpr); cv.height = Math.round(h * dpr);
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      fitLenses();
+    };
+    let s = 11;
+    const rnd = () => ((s = (s * 16807) % 2147483647) / 2147483647);
+    const N = 44;
+    const HOT = ["#ff7b00", "#ffb21a", "#ff4a1c", "#ffd36b", "#ff9a2e"];
+    const rings = Array.from({ length: N }, (_, i) => {
+      const segs = [];
+      let a = rnd() * Math.PI * 2;
+      const n = 3 + Math.floor(rnd() * 5);
+      for (let k = 0; k < n; k++) { const len = (Math.PI * 2 / n) * (0.35 + rnd() * 0.55); segs.push([a, a + len]); a += Math.PI * 2 / n; }
+      return { segs, rot: rnd() * 6.28, spd: (rnd() - 0.5) * 1.6, col: i % 11 === 5 ? "#22e4ff" : i % 13 === 8 ? "#ff2bd6" : HOT[i % HOT.length] };
+    });
+    const sparks = Array.from({ length: 70 }, () => ({ a: rnd() * Math.PI * 2, ph: rnd(), sp: 0.6 + rnd() * 0.9 }));
+    const clamp = (v) => Math.max(0, Math.min(1, v));
+
+    function draw(c) {
+      ctx.clearRect(0, 0, w, h);
+      if (c <= 0) return;
+      const open = 1 - Math.pow(1 - clamp(c / 0.35), 3);          // the mouth tears open
+      const travel = c * c * 9;                                    // then you get yanked forward
+      const jx = (Math.floor(t * 12) % 2 ? 1 : -1) * c * 3;        // shake, on twos
+      const cx = w / 2 + jx, cy = h * 0.48;
+      const R = Math.hypot(w, h) * 0.55 * open;
+      // the glowing core
+      const g = ctx.createRadialGradient(cx, cy, 0, cx, cy, R);
+      g.addColorStop(0, "rgba(255,248,230,1)");
+      g.addColorStop(0.14, "rgba(255,190,90,.95)");
+      g.addColorStop(0.42, "rgba(255,90,10,.75)");
+      g.addColorStop(0.75, "rgba(150,20,70,.35)");
+      g.addColorStop(1, "rgba(20,0,36,0)");
+      ctx.fillStyle = g;
+      ctx.beginPath(); ctx.arc(cx, cy, R, 0, Math.PI * 2); ctx.fill();
+      // rings of the tunnel, near ones huge and thick
+      const shift = travel + t * 0.7;
+      for (let i = 0; i < N; i++) {
+        const ring = rings[i];
+        let d = (i - shift) % N; if (d <= 0) d += N;
+        const depth = d * 0.42 + 0.35;
+        const r = (R * 0.42) / depth;
+        if (r > Math.max(w, h) * 1.6 || r < 2) continue;
+        const fade = Math.min(1, d / 2.2) * (1 - d / N);
+        const lw = Math.max(1, 16 / depth) * (0.6 + open * 0.4);
+        const rot = ring.rot + t * ring.spd;
+        ctx.lineWidth = lw;
+        ctx.globalAlpha = fade * 0.95;
+        if (i % 7 === 0) { // misregistered ring
+          ctx.strokeStyle = "rgba(34,228,255,.55)";
+          ctx.beginPath();
+          for (const [a0, a1] of ring.segs) { ctx.moveTo(cx - 4 + Math.cos(a0 + rot) * r, cy + Math.sin(a0 + rot) * r); ctx.arc(cx - 4, cy, r, a0 + rot, a1 + rot); }
+          ctx.stroke();
+        }
+        ctx.strokeStyle = ring.col;
+        ctx.beginPath();
+        for (const [a0, a1] of ring.segs) { ctx.moveTo(cx + Math.cos(a0 + rot) * r, cy + Math.sin(a0 + rot) * r); ctx.arc(cx, cy, r, a0 + rot, a1 + rot); }
+        ctx.stroke();
+      }
+      // sparks streaking past
+      ctx.globalAlpha = 1;
+      ctx.lineCap = "round";
+      const far = Math.max(w, h) * 0.9;
+      for (const sp of sparks) {
+        const k = (sp.ph + t * 0.35 * sp.sp + travel * 0.08) % 1;
+        const r0 = k * k * far * open, r1 = r0 + 12 + k * 90 * (0.4 + c);
+        ctx.strokeStyle = `rgba(255,${180 + Math.floor(k * 60)},${120 + Math.floor(k * 80)},${(k * 0.9).toFixed(2)})`;
+        ctx.lineWidth = 1 + k * 2.5;
+        ctx.beginPath();
+        ctx.moveTo(cx + Math.cos(sp.a) * r0, cy + Math.sin(sp.a) * r0);
+        ctx.lineTo(cx + Math.cos(sp.a) * r1, cy + Math.sin(sp.a) * r1);
+        ctx.stroke();
+      }
+    }
+    const progress = () => parseFloat(getComputedStyle(hero).getPropertyValue("--p")) || 0;
+    function loop(now) {
+      if (!running) return;
+      if (now - last > 1000 / 24) {           // animated on twos, like the rest of the site
+        t += (now - last) / 1000; last = now;
+        draw(clamp((progress() - 0.36) / 0.46));
+      }
+      requestAnimationFrame(loop);
+    }
+    addEventListener("resize", size);
+    size();
+    new IntersectionObserver(([e]) => {
+      if (e.isIntersecting && !running) { running = true; last = performance.now(); requestAnimationFrame(loop); }
+      else if (!e.isIntersecting) running = false;
+    }).observe(hero);
+  })();
+
   /* ---------------- cursor: updates on twos ---------------- */
   const cursor = $(".cursor");
   if (matchMedia("(hover: hover) and (pointer: fine)").matches) {
