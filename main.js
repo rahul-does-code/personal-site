@@ -9,10 +9,10 @@
 
   /* ---------------- dimensions (color variants) ---------------- */
   const VARIANTS = [
-    { id: "classic", name: "Classic", earth: "EARTH-1337", sw: ["#e8173f", "#1b1f6b", "#00d9ff", "#ffe14d"] },
-    { id: "noir", name: "Noir", earth: "EARTH-1933", sw: ["#000", "#3a3a3a", "#9a9a9a", "#e9e6df"] },
-    { id: "2099", name: "2099", earth: "EARTH-2099", sw: ["#1636d8", "#ff2b4e", "#00f0ff", "#02041c"] },
-    { id: "punk", name: "Punk", earth: "EARTH-1977", sw: ["#ff2f9a", "#2a62ff", "#fff200", "#21e06b"] },
+    { id: "midnight", name: "Midnight", earth: "EARTH-1610", sw: ["#000", "#ff1f3d", "#7a2cff", "#22e4ff"] },
+    { id: "stalker", name: "Stalker", earth: "EARTH-1611", sw: ["#2b1050", "#9b3dff", "#3dff8e", "#000"] },
+    { id: "noir", name: "Noir", earth: "EARTH-1933", sw: ["#000", "#3a3a3a", "#8a8a8a", "#e8e8e8"] },
+    { id: "glitch", name: "Glitch", earth: "EARTH-6160", sw: ["#03030f", "#ff2bd6", "#3b3bff", "#22e4ff"] },
   ];
   const store = {
     get: (k) => { try { return localStorage.getItem(k); } catch { return null; } },
@@ -26,8 +26,9 @@
     void shiftEl.offsetWidth;
     shiftEl.classList.add("go");
     $(".title")?.classList.add("is-glitching");
+    $(".hero")?.classList.add("is-glitching");
     setTimeout(() => cb && cb(), 230);
-    setTimeout(() => { shiftEl.classList.remove("go"); $(".title")?.classList.remove("is-glitching"); }, 600);
+    setTimeout(() => { shiftEl.classList.remove("go"); $(".title")?.classList.remove("is-glitching"); $(".hero")?.classList.remove("is-glitching"); }, 600);
   }
 
   const variantRow = $("#variantRow");
@@ -44,7 +45,7 @@
       root.dataset.variant = v.id;
       $(".dim-label").textContent = v.name.toUpperCase();
       variantRow.querySelectorAll(".variant").forEach((b) => b.setAttribute("aria-pressed", String(b.dataset.variant === v.id)));
-      $('meta[name="theme-color"]').setAttribute("content", css("--dark"));
+      $('meta[name="theme-color"]').setAttribute("content", css("--bg"));
       dots.recolor();
       store.set("rdc-variant", v.id);
     };
@@ -74,7 +75,7 @@
   $(".title").addEventListener("click", () => dimensionShift());
 
   /* ---------------- projects ---------------- */
-  const PAIRS = [["--hot", "--violet"], ["--cyan", "--violet"], ["--yellow", "--hot"], ["--violet", "--cyan"], ["--hot", "--yellow"], ["--cyan", "--hot"]];
+  const PAIRS = [["--red", "--violet"], ["--violet", "--cyan"], ["--panel2", "--red"], ["--cyan", "--violet"], ["--violet", "--magenta"], ["--red", "--panel2"]];
   $("#projects").innerHTML = S.projects.map((p, i) => {
     const [c1, c2] = PAIRS[i % PAIRS.length];
     return `
@@ -192,7 +193,7 @@
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
       draw();
     };
-    const recolor = () => { colA = css("--cyan"); colB = css("--hot"); draw(); };
+    const recolor = () => { colA = css("--cyan"); colB = css("--magenta"); draw(); };
     function layer(color, ox) {
       ctx.fillStyle = color;
       ctx.beginPath();
@@ -201,8 +202,8 @@
           const d = Math.hypot(x - px, y - py);
           const near = Math.max(0, 1 - d / 220);
           const wave = (Math.sin(x * 0.012 + t) + Math.cos(y * 0.015 - t * 0.8)) * 0.5;
-          const fade = y / h; // dots grow toward the bottom like a comic gradient
-          const r = Math.max(0, 0.6 + fade * 3 + wave * 1.2 + near * 6);
+          const fade = y / h; // dots only build up near the bottom edge and around the cursor
+          const r = -2.2 + fade * fade * 4.2 + wave * 0.8 + near * 5;
           if (r < 0.4) continue;
           ctx.moveTo(x + ox + r, y);
           ctx.arc(x + ox, y, r, 0, Math.PI * 2);
@@ -214,7 +215,7 @@
       if (!w) return;
       ctx.clearRect(0, 0, w, h);
       ctx.globalCompositeOperation = "source-over";
-      ctx.globalAlpha = 0.35;
+      ctx.globalAlpha = 0.3;
       layer(colA, -2);
       ctx.globalCompositeOperation = "lighter";
       layer(colB, 2);
@@ -238,6 +239,6 @@
     return { resize, recolor };
   })();
 
-  setVariant(store.get("rdc-variant") || "classic", false);
+  setVariant(store.get("rdc-variant") || "midnight", false);
   dots.resize();
 })();

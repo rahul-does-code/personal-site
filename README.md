@@ -1,6 +1,6 @@
 # rahuldoescode.tech
 
-Personal site with a comic-ink, multiverse look: halftone dots, misregistered CMYK printing, and animation that steps "on twos".
+Personal site with a dark comic-ink, multiverse look: halftone dots, misregistered CMYK printing, and animation that steps "on twos".
 
 It's plain HTML, CSS and JS with no build step and no dependencies.
 
@@ -41,9 +41,9 @@ Then open http://localhost:8000.
 
 ## Features
 
-- Halftone dot field in the hero that reacts to the cursor, rendered at 12fps on purpose
+- Full-bleed hero image with an RGB-slice glitch, plus a halftone dot field that follows the cursor, rendered at 12fps on purpose
 - RGB-split glitch title and a "dimension shift" wipe when you jump between sections
 - **The Suit**: a clickable armor diagram where each piece opens a loadout of skills with charge-up power bars
-- **Dimensions**: four color variants (Classic, Noir, 2099, Punk) that re-skin the whole site; your choice is remembered
+- **Dimensions**: four color variants (Midnight, Stalker, Noir, Glitch) that re-skin the whole site; your choice is remembered
 - Scroll-driven reveals and a progress bar, with fallbacks for browsers that lack scroll-driven animations
 - Respects `prefers-reduced-motion`; works from 360px up

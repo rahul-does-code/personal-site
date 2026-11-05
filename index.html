@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" data-variant="classic">
+<html lang="en" data-variant="midnight">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -8,7 +8,7 @@
   <meta property="og:title" content="Rahul Does Code" />
   <meta property="og:description" content="Projects, experiments, and the suit." />
   <meta property="og:url" content="https://rahuldoescode.tech" />
-  <meta name="theme-color" content="#140024" />
+  <meta name="theme-color" content="#07030f" />
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -31,22 +31,27 @@
       <li><a href="#contact" data-shift>Contact</a></li>
     </ul>
     <button class="dim-btn" id="dimBtn" type="button" aria-label="Switch dimension (color variant)">
-      <span class="dim-dot"></span><span class="dim-label">CLASSIC</span>
+      <span class="dim-dot"></span><span class="dim-label">MIDNIGHT</span>
     </button>
   </nav>
 
   <!-- ============ HERO ============ -->
   <header class="hero" id="top">
+    <picture class="hero-bg">
+      <source type="image/webp" srcset="assets/hero-1000.webp 1000w, assets/hero.webp 2000w" sizes="100vw" />
+      <img src="assets/hero.jpg" srcset="assets/hero-1000.jpg 1000w, assets/hero.jpg 2000w" sizes="100vw" alt="" width="2000" height="1250" fetchpriority="high" />
+    </picture>
+    <div class="hero-glitch" aria-hidden="true"></div>
     <canvas id="dotfield" aria-hidden="true"></canvas>
-    <div class="hero-burst" aria-hidden="true"></div>
+    <div class="hero-shade" aria-hidden="true"></div>
     <div class="hero-inner">
-      <p class="caption caption--yellow tilt-l">Hi. You just fell into my corner of the multiverse.</p>
+      <p class="caption caption--light tilt-l">Hi. You just fell into my corner of the multiverse.</p>
       <h1 class="title glitch" data-text="RAHUL">RAHUL</h1>
       <p class="sticker">does&nbsp;code.</p>
-      <p class="caption caption--white tilt-r">Developer. Builder. Professional breaker-of-things on <b>Earth-1337</b>.</p>
+      <p class="caption caption--dark tilt-r">Developer. Builder. Professional breaker-of-things on <b>Earth-1337</b>.</p>
       <div class="hero-cta">
-        <a class="btn btn--hot" href="#work" data-shift>See the work</a>
-        <a class="btn btn--ink" href="#suit" data-shift>Suit up</a>
+        <a class="btn btn--red" href="#work" data-shift>See the work</a>
+        <a class="btn btn--ghost" href="#suit" data-shift>Suit up</a>
       </div>
     </div>
     <div class="scroll-hint" aria-hidden="true">SCROLL<span>▼</span></div>
@@ -58,7 +63,7 @@
       <h2 class="sec-title"><span class="sec-num">#01</span> Origin Story</h2>
       <div class="panels">
         <article class="panel panel--a reveal">
-          <p class="caption caption--yellow">Chapter 1: The Spark</p>
+          <p class="caption caption--light">Chapter 1: The Spark</p>
           <div class="panel-art art-spark" aria-hidden="true"><span class="sfx sfx--pop">CLICK!</span></div>
           <p>TODO: the first thing you ever built. The janky script, the Minecraft mod, the calculator app. Every origin starts with something small.</p>
         </article>
@@ -68,7 +73,7 @@
           <p>TODO: where you leveled up: school, internships, open source, hackathons, late nights staring at stack traces.</p>
         </article>
         <article class="panel panel--c reveal">
-          <p class="caption caption--hot">Chapter 3: Right Now</p>
+          <p class="caption caption--red">Chapter 3: Right Now</p>
           <div class="panel-art art-now" aria-hidden="true"><span class="sfx sfx--pop">VWOOSH</span></div>
           <p>TODO: what you're building today and what kind of problems you want to be handed next.</p>
         </article>
@@ -96,10 +101,10 @@
           <svg class="suit-svg" viewBox="0 0 300 500" role="group" aria-label="Armor diagram. Select a piece to view its loadout.">
             <defs>
               <pattern id="ht" width="7" height="7" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
-                <circle cx="3.5" cy="3.5" r="1.6" fill="var(--ink)" opacity=".55" />
+                <circle class="ht-dot" cx="3.5" cy="3.5" r="1.6" />
               </pattern>
               <pattern id="lines" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(-30)">
-                <rect width="2" height="6" fill="var(--ink)" opacity=".35" />
+                <rect class="ln" width="2" height="6" />
               </pattern>
               <g id="armor">
                 <!-- boots / legs -->
@@ -124,7 +129,9 @@
             <g class="part" data-part="boots" tabindex="0" role="button" aria-label="Legs: Deploy Boots">
               <path class="fill" d="M116 242h32l-2 92h-28z M112 338h34l1 104 7 30h-56l8-30z M184 242h-32l2 92h28z M188 338h-34l-1 104-7 30h56l-8-30z" />
               <path class="shade" d="M116 242h14l-2 92h-10z M112 338h14l1 104 -2 30h-27l8-30z M184 242h-14l2 92h10z M188 338h-14l-1 104 2 30h27l-8-30z" />
-              <path class="detail" d="M112 384h34 M188 384h-34 M116 290h30 M184 290h-30" />
+              <path class="detail" d="M112 384h34 M188 384h-34 M116 290h30 M184 290h-30 M131 242v92 M169 242v92" />
+              <path class="kicks" d="M107 444h40l7 28h-56z M193 444h-40l-7 28h56z" />
+              <path class="sole" d="M98 466h56 M202 466h-56" />
             </g>
             <g class="part" data-part="belt" tabindex="0" role="button" aria-label="Waist: Utility Rig">
               <path class="fill" d="M118 212h64l6 28H112z" />
@@ -159,7 +166,7 @@
       </div>
 
       <div class="variants">
-        <p class="caption caption--yellow">Choose your dimension. The whole site changes with the suit.</p>
+        <p class="caption caption--light">Choose your dimension. The whole site changes with the suit.</p>
         <div class="variant-row" id="variantRow"></div>
       </div>
     </section>
@@ -176,7 +183,7 @@
       <div class="bubble reveal">
         <p class="bubble-big">Got a universe that needs saving?</p>
         <p>Or just want to talk shop? My inbox is open.</p>
-        <a class="btn btn--hot btn--big" id="emailBtn" href="#">Say hi</a>
+        <a class="btn btn--red btn--big" id="emailBtn" href="#">Say hi</a>
         <ul class="socials" id="socials"></ul>
       </div>
     </section>
