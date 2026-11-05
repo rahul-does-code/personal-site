@@ -1,196 +1,213 @@
 <!doctype html>
-<html lang="en" data-variant="midnight">
+<html lang="en">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Rahul Does Code</title>
-  <meta name="description" content="Rahul's corner of the multiverse: projects, experiments, and the suit." />
+  <meta name="description" content="A hand-drawn map of Rahul's work: projects, experiments, and the armory." />
   <meta property="og:title" content="Rahul Does Code" />
-  <meta property="og:description" content="Projects, experiments, and the suit." />
+  <meta property="og:description" content="A hand-drawn map of projects, experiments, and the armory." />
   <meta property="og:url" content="https://rahuldoescode.tech" />
-  <meta name="theme-color" content="#07030f" />
+  <meta name="theme-color" content="#efe1bf" />
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Bangers&family=Permanent+Marker&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=IM+Fell+English:ital@0;1&family=IM+Fell+English+SC&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="styles.css" />
+  <script>
+    /* Seal the map before first paint, only when motion is welcome and it hasn't been opened this visit.
+       Without JS the map is simply visible. */
+    try {
+      if (!matchMedia("(prefers-reduced-motion: reduce)").matches && !sessionStorage.getItem("map-open"))
+        document.documentElement.classList.add("is-sealed");
+    } catch (e) {}
+  </script>
 </head>
 <body>
-  <a class="skip" href="#work">Skip to projects</a>
-  <div id="progress" aria-hidden="true"></div>
-  <div class="cursor" aria-hidden="true"><span></span><span></span><span></span></div>
-  <div class="shift" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+  <a class="skip" href="#workshop">Skip to projects</a>
+  <svg class="trail" aria-hidden="true"></svg>
 
-  <nav class="nav" aria-label="Main">
-    <a class="nav-logo" href="#top" data-shift>R<span>//</span>DC</a>
+  <nav class="legend" aria-label="Main">
+    <a class="legend-home" href="#top">R<span>.</span>D<span>.</span>C</a>
     <ul>
-      <li><a href="#origin" data-shift>Origin</a></li>
-      <li><a href="#work" data-shift>Multiverse</a></li>
-      <li><a href="#suit" data-shift>The Suit</a></li>
-      <li><a href="#lab" data-shift>Lab</a></li>
-      <li><a href="#contact" data-shift>Contact</a></li>
+      <li><a href="#library">Library</a></li>
+      <li><a href="#workshop">Workshop</a></li>
+      <li><a href="#armory">Armory</a></li>
+      <li><a href="#cabinet">Cabinet</a></li>
+      <li><a href="#post">Write</a></li>
     </ul>
-    <button class="dim-btn" id="dimBtn" type="button" aria-label="Switch dimension (color variant)">
-      <span class="dim-dot"></span><span class="dim-label">MIDNIGHT</span>
-    </button>
   </nav>
 
-  <!-- ============ HERO ============ -->
+  <!-- ============ THE MAP ============ -->
   <header class="hero" id="top">
-    <picture class="hero-bg">
-      <source type="image/webp" srcset="assets/hero-1000.webp 1000w, assets/hero.webp 2000w" sizes="100vw" />
-      <img src="assets/hero.jpg" srcset="assets/hero-1000.jpg 1000w, assets/hero.jpg 2000w" sizes="100vw" alt="" width="2000" height="1250" fetchpriority="high" />
-    </picture>
-    <div class="hero-glitch" aria-hidden="true"></div>
-    <canvas id="dotfield" aria-hidden="true"></canvas>
-    <div class="hero-shade" aria-hidden="true"></div>
-    <div class="hero-inner">
-      <p class="caption caption--light tilt-l">Hi. You just fell into my corner of the multiverse.</p>
-      <h1 class="title glitch" data-text="RAHUL">RAHUL</h1>
-      <p class="sticker">does&nbsp;code.</p>
-      <p class="caption caption--dark tilt-r">Developer. Builder. Professional breaker-of-things on <b>Earth-1337</b>.</p>
-      <div class="hero-cta">
-        <a class="btn btn--red" href="#work" data-shift>See the work</a>
-        <a class="btn btn--ghost" href="#suit" data-shift>Suit up</a>
-      </div>
+    <div class="hero-title">
+      <h1>Rahul<span class="h1-sub">does code</span></h1>
+      <p class="tagline">Developer, builder, and occasional breaker of things. Every corridor on this map leads to something I made.</p>
     </div>
-    <div class="scroll-hint" aria-hidden="true">SCROLL<span>▼</span></div>
+
+    <div class="map-scroll">
+      <svg class="map" id="map" viewBox="0 0 1200 760" role="group" aria-label="Map of the site. Select a room to go there.">
+        <defs>
+          <path id="foot" d="M0 -9 C3.6 -9 4.4 -4 3.8 -0.5 C3.3 2.6 2.4 4 0 4 C-2.4 4 -3.3 2.6 -3.8 -0.5 C-4.4 -4 -3.6 -9 0 -9 Z M0 6 C2.4 6 3 7.6 2.6 9.4 C2.2 10.8 1.2 11.4 0 11.4 C-1.2 11.4 -2.2 10.8 -2.6 9.4 C-3 7.6 -2.4 6 0 6 Z" />
+          <pattern id="hatch" width="7" height="7" patternUnits="userSpaceOnUse" patternTransform="rotate(40)">
+            <line x1="0" y1="0" x2="0" y2="7" class="hatch-line" />
+          </pattern>
+        </defs>
+
+        <g class="ink-layer">
+          <!-- border -->
+          <rect class="draw frame" x="18" y="18" width="1164" height="724" />
+          <rect class="draw frame frame--thin" x="30" y="30" width="1140" height="700" />
+
+          <!-- corridors: a wide ink stroke under a narrower parchment stroke leaves two walls -->
+          <g class="corridors">
+            <path class="cw draw" d="M600 385 V185 M380 185 H780 M600 385 V575 M337 575 H800 M600 385 H1018" />
+            <path class="cf" d="M600 385 V185 M380 185 H780 M600 385 V575 M337 575 H800 M600 385 H1018" />
+          </g>
+
+          <!-- rooms -->
+          <g class="room" data-room="library" data-go="#library" tabindex="0" role="link" aria-label="The Library: origin story">
+            <rect class="room-floor draw" x="80" y="90" width="300" height="190" />
+            <path class="draw detail" d="M100 112 H170 M100 130 H170 M100 148 H170 M100 166 H170 M290 112 H360 M290 130 H360 M290 148 H360 M290 166 H360" />
+            <rect class="draw detail" x="195" y="200" width="70" height="44" />
+            <circle class="draw detail" cx="230" cy="222" r="6" />
+          </g>
+          <g class="room" data-room="workshop" data-go="#workshop" tabindex="0" role="link" aria-label="The Workshop: projects">
+            <rect class="room-floor draw" x="780" y="70" width="340" height="230" />
+            <rect class="draw detail" x="810" y="100" width="120" height="28" />
+            <rect class="draw detail" x="810" y="240" width="120" height="28" />
+            <rect class="draw detail" x="1066" y="96" width="30" height="120" />
+            <circle class="draw detail" cx="1050" cy="250" r="22" />
+            <circle class="draw detail" cx="1050" cy="250" r="8" />
+            <path class="draw detail" d="M1050 222 V214 M1050 278 V286 M1022 250 H1014 M1078 250 H1086 M1030 230 L1025 225 M1070 270 L1075 275 M1070 230 L1075 225 M1030 270 L1025 275" />
+          </g>
+          <g class="room" data-room="hall" data-go="#top" tabindex="0" role="link" aria-label="The Great Hall: back to the top">
+            <rect class="room-floor draw" x="470" y="300" width="260" height="170" />
+            <rect class="draw detail" x="498" y="320" width="204" height="12" />
+            <rect class="draw detail" x="498" y="438" width="204" height="12" />
+          </g>
+          <g class="room" data-room="armory" data-go="#armory" tabindex="0" role="link" aria-label="The Armory: the suit of armor">
+            <polygon class="room-floor draw" points="337,535 280,478 200,478 143,535 143,615 200,672 280,672 337,615" />
+            <polygon class="draw detail" points="305,548 267,510 213,510 175,548 175,602 213,640 267,640 305,602" />
+            <path class="draw detail" d="M240 548 V602 M213 575 H267" />
+          </g>
+          <g class="room" data-room="cabinet" data-go="#cabinet" tabindex="0" role="link" aria-label="The Cabinet: curiosities">
+            <rect class="room-floor draw" x="800" y="480" width="300" height="190" />
+            <path class="draw detail" d="M826 500 h36 v24 h-36 z M870 500 h36 v24 h-36 z M914 500 h36 v24 h-36 z M826 530 h36 v24 h-36 z M870 530 h36 v24 h-36 z M914 530 h36 v24 h-36 z" />
+            <rect class="draw detail" x="1000" y="600" width="74" height="44" />
+          </g>
+          <g class="room" data-room="post" data-go="#post" tabindex="0" role="link" aria-label="The Post Tower: get in touch">
+            <circle class="room-floor draw" cx="1080" cy="385" r="62" />
+            <circle class="draw detail" cx="1080" cy="385" r="44" />
+            <path class="draw detail" d="M1094 385 H1124 M1090 395 L1111 416 M1080 399 V429 M1070 395 L1049 416 M1066 385 H1036 M1070 375 L1049 354 M1080 371 V341 M1090 375 L1111 354" />
+          </g>
+
+          <!-- compass -->
+          <g class="compass" transform="translate(470 668)">
+            <circle class="draw detail" r="40" />
+            <path class="draw compass-star" d="M0 -52 L8 -8 L52 0 L8 8 L0 52 L-8 8 L-52 0 L-8 -8 Z" />
+            <text class="compass-n" y="-58" text-anchor="middle">N</text>
+          </g>
+        </g>
+
+        <!-- room names on ribbons -->
+        <g class="labels">
+          <g class="ribbon" transform="translate(230 90)"><path d="M-78 -15 H78 L66 0 L78 15 H-78 L-66 0 Z" /><text y="6">The Library</text></g>
+          <g class="ribbon" transform="translate(950 70)"><path d="M-88 -15 H88 L76 0 L88 15 H-88 L-76 0 Z" /><text y="6">The Workshop</text></g>
+          <g class="ribbon" transform="translate(600 300)"><path d="M-84 -15 H84 L72 0 L84 15 H-84 L-72 0 Z" /><text y="6">The Great Hall</text></g>
+          <g class="ribbon" transform="translate(240 478)"><path d="M-74 -15 H74 L62 0 L74 15 H-74 L-62 0 Z" /><text y="6">The Armory</text></g>
+          <g class="ribbon" transform="translate(950 480)"><path d="M-76 -15 H76 L64 0 L76 15 H-76 L-64 0 Z" /><text y="6">The Cabinet</text></g>
+          <g class="ribbon" transform="translate(1080 323)"><path d="M-84 -15 H84 L72 0 L84 15 H-84 L-72 0 Z" /><text y="6">The Post Tower</text></g>
+          <text class="note" x="250" y="410" transform="rotate(-6 250 410)">here be bugs</text>
+          <text class="note" x="820" y="428">the long corridor</text>
+          <text class="note" x="815" y="352" transform="rotate(-3 815 352)">mind the loose stair</text>
+          <text class="note" x="566" y="580" transform="rotate(-90 566 580)">to the vaults</text>
+        </g>
+
+        <g class="steps" id="steps"></g>
+      </svg>
+    </div>
+
+    <div class="seal-prompt" aria-hidden="true">
+      <p class="seal-line">This parchment keeps its secrets from the uninvited.</p>
+      <button class="seal-btn" type="button" id="revealBtn">Tap the parchment to reveal the map</button>
+    </div>
   </header>
 
   <main>
-    <!-- ============ ORIGIN ============ -->
-    <section class="section section--paper" id="origin">
-      <h2 class="sec-title"><span class="sec-num">#01</span> Origin Story</h2>
-      <div class="panels">
-        <article class="panel panel--a reveal">
-          <p class="caption caption--light">Chapter 1: The Spark</p>
-          <div class="panel-art art-spark" aria-hidden="true"><span class="sfx sfx--pop">CLICK!</span></div>
-          <p>TODO: the first thing you ever built. The janky script, the Minecraft mod, the calculator app. Every origin starts with something small.</p>
-        </article>
-        <article class="panel panel--b reveal">
-          <p class="caption caption--cyan">Chapter 2: The Grind</p>
-          <div class="panel-art art-grind" aria-hidden="true"><span class="sfx sfx--pop">TAKTAKTAK</span></div>
-          <p>TODO: where you leveled up: school, internships, open source, hackathons, late nights staring at stack traces.</p>
-        </article>
-        <article class="panel panel--c reveal">
-          <p class="caption caption--red">Chapter 3: Right Now</p>
-          <div class="panel-art art-now" aria-hidden="true"><span class="sfx sfx--pop">VWOOSH</span></div>
-          <p>TODO: what you're building today and what kind of problems you want to be handed next.</p>
-        </article>
+    <!-- ============ LIBRARY / ORIGIN ============ -->
+    <section class="section" id="library" aria-labelledby="library-h">
+      <h2 id="library-h">The Library</h2>
+      <svg class="flourish" viewBox="0 0 320 24" aria-hidden="true"><path d="M2 12 C60 2 100 22 160 12 S260 2 318 12 M150 12 c4 -10 16 -10 20 0 c-4 10 -16 10 -20 0" /></svg>
+      <div class="prose">
+        <p class="dropcap">TODO: the first thing you ever built. The janky script, the game mod, the calculator app that only did addition. Every map starts with one room.</p>
+        <p>TODO: where you levelled up: school, internships, open source, hackathons, late nights spent reading stack traces like ancient runes.</p>
+        <p>TODO: what you're building right now, and the kind of problems you'd like to be handed next.</p>
       </div>
     </section>
 
-    <!-- ============ PROJECTS ============ -->
-    <section class="section section--dark" id="work">
-      <h2 class="sec-title sec-title--light"><span class="sec-num">#02</span> The Multiverse</h2>
-      <p class="sec-sub">Every project is its own universe. Hover to make one glitch.</p>
-      <div class="grid-projects" id="projects"></div>
+    <!-- ============ WORKSHOP / PROJECTS ============ -->
+    <section class="section" id="workshop" aria-labelledby="workshop-h">
+      <h2 id="workshop-h">The Workshop</h2>
+      <svg class="flourish" viewBox="0 0 320 24" aria-hidden="true"><path d="M2 12 C60 2 100 22 160 12 S260 2 318 12 M150 12 c4 -10 16 -10 20 0 c-4 10 -16 10 -20 0" /></svg>
+      <p class="lede">Things I've made, written up like entries in a ledger. Unfold any one for the longer story.</p>
+      <ol class="ledger" id="ledger"></ol>
     </section>
 
-    <!-- ============ THE SUIT ============ -->
-    <section class="section section--suit" id="suit">
-      <h2 class="sec-title"><span class="sec-num">#03</span> The Suit</h2>
-      <p class="sec-sub sec-sub--ink">Every piece of the armor is something I actually use. Tap a piece to inspect it.</p>
+    <!-- ============ ARMORY / SUIT ============ -->
+    <section class="section" id="armory" aria-labelledby="armory-h">
+      <h2 id="armory-h">The Armory</h2>
+      <svg class="flourish" viewBox="0 0 320 24" aria-hidden="true"><path d="M2 12 C60 2 100 22 160 12 S260 2 318 12 M150 12 c4 -10 16 -10 20 0 c-4 10 -16 10 -20 0" /></svg>
+      <p class="lede">Every piece of this suit is something I actually use. Choose a piece to read its inscription.</p>
+      <div class="armory">
+        <figure class="armor-fig">
+          <svg class="armor" id="armor" viewBox="0 0 320 520" role="group" aria-label="Suit of armor"></svg>
+        </figure>
+        <div class="armor-read">
+          <div class="armor-tabs" role="tablist" aria-label="Pieces of armor" id="armorTabs"></div>
+          <div class="armor-panel" id="armorPanel" role="tabpanel" aria-live="polite"></div>
+        </div>
+      </div>
+    </section>
 
-      <div class="suit-wrap">
-        <div class="suit-stage">
-          <div class="suit-hud" aria-hidden="true">
-            <span id="suitDesignation">MK-VII</span>
-            <span class="blink">● ONLINE</span>
+    <!-- ============ CABINET / LAB ============ -->
+    <section class="section" id="cabinet" aria-labelledby="cabinet-h">
+      <h2 id="cabinet-h">The Cabinet of Curiosities</h2>
+      <svg class="flourish" viewBox="0 0 320 24" aria-hidden="true"><path d="M2 12 C60 2 100 22 160 12 S260 2 318 12 M150 12 c4 -10 16 -10 20 0 c-4 10 -16 10 -20 0" /></svg>
+      <div class="cabinet" id="cabinetList"></div>
+    </section>
+
+    <!-- ============ POST / CONTACT ============ -->
+    <section class="section post" id="post" aria-labelledby="post-h">
+      <h2 id="post-h">The Post Tower</h2>
+      <svg class="flourish" viewBox="0 0 320 24" aria-hidden="true"><path d="M2 12 C60 2 100 22 160 12 S260 2 318 12 M150 12 c4 -10 16 -10 20 0 c-4 10 -16 10 -20 0" /></svg>
+      <div class="post-wrap" id="postWrap">
+        <div class="letter-wrap"><div>
+          <div class="letter" id="letter">
+            <p class="letter-hi">Dear visitor,</p>
+            <p>Got a project that needs building, a bug that needs hunting, or just want to talk shop? I read everything that lands here.</p>
+            <p class="letter-mail"><a id="mailLink" href="#">hello@rahuldoescode.tech</a></p>
+            <ul class="letter-links" id="socials"></ul>
+            <p class="letter-sign">Yours, Rahul</p>
           </div>
-          <svg class="suit-svg" viewBox="0 0 300 500" role="group" aria-label="Armor diagram. Select a piece to view its loadout.">
-            <defs>
-              <pattern id="ht" width="7" height="7" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
-                <circle class="ht-dot" cx="3.5" cy="3.5" r="1.6" />
-              </pattern>
-              <pattern id="lines" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(-30)">
-                <rect class="ln" width="2" height="6" />
-              </pattern>
-              <g id="armor">
-                <!-- boots / legs -->
-                <path d="M116 242h32l-2 92h-28z M112 338h34l1 104 7 30h-56l8-30z" />
-                <path d="M184 242h-32l2 92h28z M188 338h-34l-1 104-7 30h56l-8-30z" />
-                <!-- belt -->
-                <path d="M118 212h64l6 28H112z" />
-                <!-- arms -->
-                <path d="M84 152l26-6-2 66-26 10z M78 226l30-8 4 72-32 10z M80 304l32-10 3 28-30 6z" />
-                <path d="M216 152l-26-6 2 66 26 10z M222 226l-30-8-4 72 32 10z M220 304l-32-10-3 28 30 6z" />
-                <!-- chest + shoulders -->
-                <path d="M114 106h72l12 44-16 60h-64l-16-60z M80 118l34-12 4 34-34 14z M220 118l-34-12-4 34 34 14z" />
-                <!-- helmet -->
-                <path d="M120 30l30-16 30 16 9 40-19 32h-40l-19-32z" />
-              </g>
-            </defs>
-
-            <!-- misregistration ghosts -->
-            <use href="#armor" class="ghost ghost--c" />
-            <use href="#armor" class="ghost ghost--m" />
-
-            <g class="part" data-part="boots" tabindex="0" role="button" aria-label="Legs: Deploy Boots">
-              <path class="fill" d="M116 242h32l-2 92h-28z M112 338h34l1 104 7 30h-56l8-30z M184 242h-32l2 92h28z M188 338h-34l-1 104-7 30h56l-8-30z" />
-              <path class="shade" d="M116 242h14l-2 92h-10z M112 338h14l1 104 -2 30h-27l8-30z M184 242h-14l2 92h10z M188 338h-14l-1 104 2 30h27l-8-30z" />
-              <path class="detail" d="M112 384h34 M188 384h-34 M116 290h30 M184 290h-30 M131 242v92 M169 242v92" />
-              <path class="kicks" d="M107 444h40l7 28h-56z M193 444h-40l-7 28h56z" />
-              <path class="sole" d="M98 466h56 M202 466h-56" />
-            </g>
-            <g class="part" data-part="belt" tabindex="0" role="button" aria-label="Waist: Utility Rig">
-              <path class="fill" d="M118 212h64l6 28H112z" />
-              <path class="shade" d="M118 212h64l6 28H112z" style="fill:url(#lines)" />
-              <rect class="buckle" x="138" y="216" width="24" height="20" />
-            </g>
-            <g class="part" data-part="gauntlets" tabindex="0" role="button" aria-label="Arms: Fabricator Gauntlets">
-              <path class="fill" d="M84 152l26-6-2 66-26 10z M78 226l30-8 4 72-32 10z M80 304l32-10 3 28-30 6z M216 152l-26-6 2 66 26 10z M222 226l-30-8-4 72 32 10z M220 304l-32-10-3 28 30 6z" />
-              <path class="shade" d="M84 152l10-2-2 68-10 4z M78 226l12-3 2 74-12 3z M216 152l-10-2 2 68 10 4z M222 226l-12-3-2 74 12 3z" />
-              <path class="detail" d="M80 250l30-8 M80 268l31-8 M220 250l-30-8 M220 268l-31-8" />
-            </g>
-            <g class="part" data-part="core" tabindex="0" role="button" aria-label="Chest: Reactor Core">
-              <path class="fill" d="M114 106h72l12 44-16 60h-64l-16-60z M80 118l34-12 4 34-34 14z M220 118l-34-12-4 34 34 14z" />
-              <path class="shade" d="M114 106h20l-6 104h-10l-16-60z M80 118l34-12 4 34-34 14z" />
-              <circle class="reactor" cx="150" cy="152" r="22" />
-              <text class="emblem" x="150" y="159" text-anchor="middle">&lt;/&gt;</text>
-            </g>
-            <g class="part" data-part="helmet" tabindex="0" role="button" aria-label="Head: Neural Helm">
-              <path class="fill" d="M120 30l30-16 30 16 9 40-19 32h-40l-19-32z" />
-              <path class="shade" d="M120 30l30-16v88h-20l-19-32z" />
-              <path class="visor" d="M124 56l26 8 26-8-4 18-22 8-22-8z" />
-              <path class="detail" d="M150 14v20" />
-            </g>
-          </svg>
-          <p class="suit-hint" aria-hidden="true">◀ TAP A PIECE ▶</p>
+        </div></div>
+        <div class="env">
+          <div class="env-back" aria-hidden="true"></div>
+          <div class="env-flap" aria-hidden="true"></div>
+          <div class="env-front" aria-hidden="true"></div>
+          <svg class="env-lines" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"><path d="M0 100 L41 45 M100 100 L59 45" /></svg>
+          <button class="wax" id="waxBtn" type="button" aria-controls="letter" aria-expanded="true">
+            <span class="wax-mark" aria-hidden="true">R</span>
+            <span class="wax-label">Break the seal</span>
+          </button>
         </div>
-
-        <div class="suit-panel panel" id="suitPanel" aria-live="polite">
-          <div class="suit-tabs" role="tablist" aria-label="Armor pieces" id="suitTabs"></div>
-          <div class="suit-readout" id="suitReadout"></div>
-        </div>
-      </div>
-
-      <div class="variants">
-        <p class="caption caption--light">Choose your dimension. The whole site changes with the suit.</p>
-        <div class="variant-row" id="variantRow"></div>
-      </div>
-    </section>
-
-    <!-- ============ LAB ============ -->
-    <section class="section section--paper" id="lab">
-      <h2 class="sec-title"><span class="sec-num">#04</span> The Lab</h2>
-      <p class="sec-sub sec-sub--ink">Cool stuff, odds and ends, works in progress.</p>
-      <div class="grid-lab" id="labGrid"></div>
-    </section>
-
-    <!-- ============ CONTACT ============ -->
-    <section class="section section--dark contact" id="contact">
-      <div class="bubble reveal">
-        <p class="bubble-big">Got a universe that needs saving?</p>
-        <p>Or just want to talk shop? My inbox is open.</p>
-        <a class="btn btn--red btn--big" id="emailBtn" href="#">Say hi</a>
-        <ul class="socials" id="socials"></ul>
       </div>
     </section>
   </main>
 
   <footer class="footer">
-    <p>Hand-drawn in HTML on <b>Earth-1337</b>. No universes were harmed. © <span id="yr"></span> Rahul</p>
+    <button class="fold-btn" id="foldBtn" type="button">Fold the map away</button>
+    <p>© <span id="yr"></span> Rahul. Drawn by hand at rahuldoescode.tech.</p>
   </footer>
 
   <script src="content.js"></script>

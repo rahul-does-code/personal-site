@@ -1,9 +1,9 @@
-# Build notes & assumptions
+# Build notes & assumptions (map branch)
 
-- **"The Crawler"**: read as the Prowler from *Into the Spider-Verse* (purple suit, green glow). That's the "Stalker" color variant.
-- **Palette**: dark, black/purple/red only, with no yellow or orange (per Rahul's feedback on v1).
-- **Hero image** (`assets/hero*`): Rahul supplied it. It's a ToyArk photo of a licensed figure and carries their watermark. Swap in an owned or licensed image before going public.
-- **Email**: placeholder `hello@rahuldoescode.tech` in `content.js`. Needs forwarding set up or a real address.
-- **Projects / skills / lab copy**: placeholders marked `TODO` in `content.js`.
-- **Hosting**: GitHub Pages from `main` (root) with the `CNAME` file pointing at `rahuldoescode.tech`. DNS records are in the README.
-- **Not done yet**: creating the public GitHub repo and enabling Pages. These are outward-facing, so they're waiting on Rahul's explicit OK.
+- **Theme**: an enchanted hand-drawn castle map, inspired by the idea of a magical map rather than copying any film or book artwork, names or quotes. Parchment, iron-gall ink, and walking footprints.
+- **Focal moment**: the map starts blank. Tap anywhere and the ink spreads outward from that point, room by room. It's skipped for reduced-motion users and for return visits in the same session, and "Fold the map away" in the footer replays it.
+- **Motion that carries meaning**: Rahul's footprints wander between rooms and walk to whichever room you click. Your own footprints follow the cursor. A trail in the left margin shows how far down the page you are. The armor draws itself, ledger entries unfold, and the letter opens when you break the wax seal.
+- **Suit of armor** is kept as "The Armory": a plate-armor diagram where each piece maps to a skill group in `content.js`.
+- **Design references**: followed pbakaus/impeccable's craft floor. That means one authored moment instead of fading in every section, no eyebrow labels or section numbers, no hard offset shadows, themed selection, caret, scrollbar and focus rings, `text-wrap: balance`/`pretty`, and content visible if JS fails.
+- **Removed** the ToyArk hero image on this branch.
+- **Email / projects / copy**: still placeholders marked `TODO` in `content.js` and `index.html`.
