@@ -4,86 +4,73 @@
    ===================================================================== */
 
 window.SITE = {
-  name: "RAHUL",
-  handle: "rahul-does-code",
+  name: "Rahul",
   github: "https://github.com/rahul-does-code",
   email: "hello@rahuldoescode.tech", // TODO: set up forwarding or swap in your real address
   socials: [
     { label: "GitHub", url: "https://github.com/rahul-does-code" },
     { label: "LinkedIn", url: "#" }, // TODO
-    { label: "Resume", url: "#" },   // TODO: drop a PDF in /assets and link it
+    { label: "Résumé", url: "#" },   // TODO: drop a PDF in /assets and link it
   ],
 
-  /* ---------- PROJECTS: each one is its own "universe" ---------- */
+  /* ---------- THE WORKSHOP: projects, written like ledger entries ---------- */
   projects: [
     {
       title: "Project Alpha",          // TODO
-      earth: "EARTH-0001",
-      tag: "Flagship",
-      sfx: "KRAKOOM!",
+      year: "2026",
+      kind: "Flagship",
       blurb: "Swap this with a one-paragraph pitch: what it does, why you built it, and the hardest problem you solved along the way.",
+      detail: "Room for the longer story: the architecture, the dead ends, what you'd change next time. Opens when someone unfolds the entry.",
       stack: ["TypeScript", "React", "Node"],
       links: [
-        { label: "Live", url: "#" },
-        { label: "Code", url: "https://github.com/rahul-does-code" },
+        { label: "Visit", url: "#" },
+        { label: "Source", url: "https://github.com/rahul-does-code" },
       ],
     },
     {
       title: "Project Beta",           // TODO
-      earth: "EARTH-0042",
-      tag: "AI / ML",
-      sfx: "BZZRT!",
+      year: "2025",
+      kind: "Machine learning",
       blurb: "A placeholder for something smart. Mention the model, the data, and one number that shows it worked.",
+      detail: "Which dataset, how you evaluated it, and what surprised you.",
       stack: ["Python", "PyTorch", "FastAPI"],
-      links: [{ label: "Code", url: "https://github.com/rahul-does-code" }],
+      links: [{ label: "Source", url: "https://github.com/rahul-does-code" }],
     },
     {
       title: "Project Gamma",          // TODO
-      earth: "EARTH-0404",
-      tag: "Hardware",
-      sfx: "FZZT!",
-      blurb: "Got a project with wires, sensors, or a soldering iron? It goes here. Photos make these hit way harder.",
-      stack: ["C++", "Arduino", "3D Print"],
-      links: [{ label: "Writeup", url: "#" }],
+      year: "2025",
+      kind: "Hardware",
+      blurb: "Got a project with wires, sensors, or a soldering iron? It goes here. Photos make these land.",
+      detail: "Parts list, the bug that took a week, and a link to the build log.",
+      stack: ["C++", "Arduino", "3D printing"],
+      links: [{ label: "Write-up", url: "#" }],
     },
     {
       title: "Project Delta",          // TODO
-      earth: "EARTH-1337",
-      tag: "Tooling",
-      sfx: "SHNK!",
-      blurb: "The little dev tool or CLI you built because you were annoyed. Those are the ones people actually want to hear about.",
+      year: "2024",
+      kind: "Tooling",
+      blurb: "The little dev tool or CLI you built because something annoyed you. Those are the ones people actually want to hear about.",
+      detail: "Who uses it, and the one feature you're proudest of.",
       stack: ["Go", "CLI", "Docker"],
-      links: [{ label: "Code", url: "https://github.com/rahul-does-code" }],
+      links: [{ label: "Source", url: "https://github.com/rahul-does-code" }],
     },
     {
       title: "Project Epsilon",        // TODO
-      earth: "EARTH-2077",
-      tag: "Game",
-      sfx: "BWAAM!",
+      year: "2024",
+      kind: "Game",
       blurb: "Game jam entry, weekend hack, or experimental toy. Link a playable build if you can.",
+      detail: "The theme, the time limit, and how it placed.",
       stack: ["Godot", "GDScript"],
       links: [{ label: "Play", url: "#" }],
     },
-    {
-      title: "Project Zeta",           // TODO
-      earth: "EARTH-8008",
-      tag: "Web",
-      sfx: "WHAM!",
-      blurb: "Something shipped to real users. Mention how many and what you learned from them.",
-      stack: ["Next.js", "Postgres", "Tailwind"],
-      links: [{ label: "Live", url: "#" }],
-    },
   ],
 
-  /* ---------- THE SUIT: your armor, piece by piece ----------
-     Each part maps to a piece of the armor diagram.
-     level is 0–100 and drives the power bar. */
+  /* ---------- THE ARMORY: a suit of armor, piece by piece ----------
+     level is 0–100 and fills the ink gauge. */
   suit: {
-    designation: "MK-VII // RDC-ARMOR",
     parts: {
-      helmet: {
-        name: "Neural Helm",
-        slot: "HEAD",
+      helm: {
+        name: "The Helm",
         role: "Languages: how I think",
         gear: [
           { name: "TypeScript", level: 90 },
@@ -92,10 +79,9 @@ window.SITE = {
           { name: "C++", level: 55 },
         ],
       },
-      core: {
-        name: "Reactor Core",
-        slot: "CHEST",
-        role: "Frameworks: what powers the build",
+      breastplate: {
+        name: "The Breastplate",
+        role: "Frameworks: the core of every build",
         gear: [
           { name: "React / Next.js", level: 90 },
           { name: "Node / Express", level: 80 },
@@ -104,47 +90,43 @@ window.SITE = {
         ],
       },
       gauntlets: {
-        name: "Fabricator Gauntlets",
-        slot: "ARMS",
+        name: "The Gauntlets",
         role: "Tools: what I build with",
         gear: [
           { name: "Git", level: 90 },
-          { name: "Figma", level: 70 },
           { name: "Neovim / VS Code", level: 85 },
+          { name: "Figma", level: 70 },
           { name: "Testing (Vitest, Pytest)", level: 70 },
         ],
       },
       belt: {
-        name: "Utility Rig",
-        slot: "WAIST",
+        name: "The Sword Belt",
         role: "Data: what I store and query",
         gear: [
           { name: "PostgreSQL", level: 80 },
-          { name: "Redis", level: 60 },
           { name: "SQLite", level: 75 },
+          { name: "Redis", level: 60 },
         ],
       },
-      boots: {
-        name: "Deploy Boots",
-        slot: "LEGS",
-        role: "Infra: how it ships",
+      greaves: {
+        name: "The Greaves",
+        role: "Infrastructure: how it ships",
         gear: [
+          { name: "Linux", level: 85 },
           { name: "Docker", level: 80 },
           { name: "GitHub Actions", level: 80 },
           { name: "AWS / Vercel", level: 65 },
-          { name: "Linux", level: 85 },
         ],
       },
     },
   },
 
-  /* ---------- THE LAB: cool stuff, odds and ends ---------- */
-  lab: [
-    { kicker: "CURRENTLY", title: "Building this site", body: "Halftones, misregistered ink, and animation that runs on twos. Yes, the stutter is on purpose." },
-    { kicker: "LEARNING", title: "Something new", body: "TODO: whatever you're deep in right now, like Rust, shaders, or ML papers." },
-    { kicker: "READING", title: "A good book", body: "TODO: book or blog you'd recommend to anyone who asks." },
-    { kicker: "ON REPEAT", title: "Coding playlist", body: "TODO: link the playlist that gets you through a 2am debugging session." },
-    { kicker: "WINS", title: "Hackathons & awards", body: "TODO: placements, certs, shout-outs. Brag a little, it's your site." },
-    { kicker: "SIDE QUEST", title: "Off the keyboard", body: "TODO: the non-code thing you're into. People remember this part." },
+  /* ---------- THE CABINET: cool stuff, odds and ends ---------- */
+  cabinet: [
+    { title: "Building this site", tag: "Currently", body: "A map that draws itself and footsteps that wander between rooms. Everything here is hand-written HTML, CSS and JavaScript." },
+    { title: "Something new", tag: "Learning", body: "TODO: whatever you're deep in right now, like Rust, shaders, or ML papers." },
+    { title: "A good book", tag: "Reading", body: "TODO: a book or blog you'd recommend to anyone who asks." },
+    { title: "Hackathons & awards", tag: "Wins", body: "TODO: placements, certificates, shout-outs. Brag a little; it's your site." },
+    { title: "Off the keyboard", tag: "Side quest", body: "TODO: the non-code thing you're into. People remember this part." },
   ],
 };
