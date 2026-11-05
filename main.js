@@ -165,6 +165,20 @@
     }, { passive: true });
   }
 
+  /* ---------------- the dive: fallback for browsers without scroll-driven animations ---------------- */
+  if (!reduceMotion && !CSS.supports("(animation-timeline: view()) and (animation-range: contain)")) {
+    const hero = $(".hero");
+    let queued = false;
+    const update = () => {
+      queued = false;
+      const r = hero.getBoundingClientRect();
+      const range = r.height - innerHeight;
+      hero.style.setProperty("--p", range > 0 ? Math.min(1, Math.max(0, -r.top / range)).toFixed(4) : 0);
+    };
+    addEventListener("scroll", () => { if (!queued) { queued = true; requestAnimationFrame(update); } }, { passive: true });
+    update();
+  }
+
   /* ---------------- cursor: updates on twos ---------------- */
   const cursor = $(".cursor");
   if (matchMedia("(hover: hover) and (pointer: fine)").matches) {

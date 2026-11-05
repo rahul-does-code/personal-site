@@ -186,13 +186,42 @@ body::before {
 }
 
 /* ---------- HERO ---------- */
-.hero {
-  position: relative; min-height: 100svh; overflow: hidden;
+/* The hero is a tall scroll track; its content stays pinned while --p runs 0 → 1
+   and the camera falls into the city. */
+@property --p { syntax: "<number>"; inherits: true; initial-value: 0; }
+.hero { position: relative; height: 260svh; background: var(--bg); view-timeline: --dive block; view-timeline-inset: 0; }
+.hero-pin {
+  position: sticky; top: 0; height: 100svh; overflow: hidden;
   display: flex; align-items: flex-end;
   padding: 120px max(16px, 6vw) 96px;
-  background: var(--bg);
   isolation: isolate;
 }
+@media (prefers-reduced-motion: no-preference) {
+  @supports ((animation-timeline: view()) and (animation-range: contain)) {
+    @keyframes dive { to { --p: 1; } }
+    .hero { animation: dive linear both; animation-timeline: --dive; animation-range: contain 0% contain 100%; }
+  }
+}
+.dive {
+  position: absolute; inset: 0; z-index: -4;
+  transform-origin: 50% 21%;                 /* the gap between the towers */
+  transform: scale(calc(1 + var(--p) * var(--p) * 3.6)) rotate(calc(var(--p) * 6deg));
+  will-change: transform;
+}
+.speed {
+  position: absolute; inset: -30%; z-index: -3; pointer-events: none;
+  background: repeating-conic-gradient(from 0deg at 50% 32%, transparent 0deg 2.6deg, rgb(225 235 255 / .5) 2.6deg 3deg, transparent 3deg 7deg, rgb(255 60 120 / .35) 7deg 7.3deg, transparent 7.3deg 11deg);
+  mask-image: radial-gradient(circle at 50% 32%, transparent 0 12%, #000 42%);
+  -webkit-mask-image: radial-gradient(circle at 50% 32%, transparent 0 12%, #000 42%);
+  opacity: calc(var(--p) * 1.5 - .25);
+}
+@media (prefers-reduced-motion: no-preference) {
+  .speed { animation: speed-flick .25s steps(2) infinite; }
+}
+@keyframes speed-flick { 50% { rotate: 2.5deg; } }
+.dive-fade { position: absolute; inset: 0; z-index: -1; pointer-events: none; background: var(--bg); opacity: calc((var(--p) - .8) * 5); }
+.hero-inner { transform: translateY(calc(var(--p) * -55svh)) scale(calc(1 - var(--p) * .35)); opacity: calc(1 - var(--p) * 2.6); }
+#dotfield { opacity: calc(1 - var(--p) * 2.2); }
 .hero-bg, .hero-bg img, .hero-glitch, #dotfield, .hero-shade { position: absolute; inset: 0; width: 100%; height: 100%; }
 .hero-bg { z-index: -4; }
 .hero-bg img { object-fit: cover; object-position: 50% 55%; }
@@ -252,9 +281,10 @@ html[data-variant="glitch"] .hero-bg img { filter: hue-rotate(-25deg) saturate(1
   font: 700 12px var(--f-mono); letter-spacing: 4px; display: grid; justify-items: center;
 }
 .scroll-hint span { animation: bob 1s steps(2) infinite; }
+.scroll-hint { opacity: calc(1 - var(--p) * 8); }
 @keyframes bob { 50% { translate: 0 6px; } }
 @media (max-width: 700px) {
-  .hero { align-items: flex-start; padding-top: 128px; }
+  .hero-pin { align-items: flex-start; padding-top: 128px; }
   .hero-bg img { object-position: 50% 60%; }
   .hero-shade { background: linear-gradient(180deg, rgb(7 3 15 / .85) 0%, rgb(7 3 15 / .35) 45%, transparent 60%), linear-gradient(0deg, var(--bg) 0%, transparent 20%); }
   .sticker { margin-left: 30px; }
@@ -550,7 +580,9 @@ html[data-variant="glitch"] .hero-bg img { filter: hue-rotate(-25deg) saturate(1
 
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; scroll-behavior: auto !important; }
-  .shift, .hero-glitch { display: none; }
+  .shift, .hero-glitch, .speed { display: none; }
+  .hero { height: auto; }
+  .hero-pin { position: relative; height: auto; min-height: 100svh; }
 }
 
 @media (max-width: 560px) {

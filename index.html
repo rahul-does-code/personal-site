@@ -37,13 +37,18 @@
 
   <!-- ============ HERO ============ -->
   <header class="hero" id="top">
-    <picture class="hero-bg">
-      <source type="image/webp" srcset="assets/hero-1000.webp 1000w, assets/hero.webp 2000w" sizes="100vw" />
-      <img src="assets/hero.jpg" srcset="assets/hero-1000.jpg 1000w, assets/hero.jpg 2000w" sizes="100vw" alt="" width="2000" height="1250" fetchpriority="high" />
-    </picture>
-    <div class="hero-glitch" aria-hidden="true"></div>
+   <div class="hero-pin">
+    <div class="dive" aria-hidden="true">
+      <picture class="hero-bg">
+        <source type="image/webp" srcset="assets/hero-1000.webp 1000w, assets/hero.webp 2000w" sizes="100vw" />
+        <img src="assets/hero.jpg" srcset="assets/hero-1000.jpg 1000w, assets/hero.jpg 2000w" sizes="100vw" alt="" width="2000" height="1250" fetchpriority="high" />
+      </picture>
+      <div class="hero-glitch"></div>
+    </div>
+    <div class="speed" aria-hidden="true"></div>
     <canvas id="dotfield" aria-hidden="true"></canvas>
     <div class="hero-shade" aria-hidden="true"></div>
+    <div class="dive-fade" aria-hidden="true"></div>
     <div class="hero-inner">
       <p class="caption caption--light tilt-l">Hi. You just fell into my corner of the multiverse.</p>
       <h1 class="title glitch" data-text="RAHUL">RAHUL</h1>
@@ -54,7 +59,8 @@
         <a class="btn btn--ghost" href="#suit" data-shift>Suit up</a>
       </div>
     </div>
-    <div class="scroll-hint" aria-hidden="true">SCROLL<span>▼</span></div>
+    <div class="scroll-hint" aria-hidden="true">SCROLL TO DROP IN<span>▼</span></div>
+   </div>
   </header>
 
   <main>
